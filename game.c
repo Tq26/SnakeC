@@ -31,7 +31,7 @@ int advanceGame(struct gameData* data){
     
     printf("Game advanced\n");
     sleep(1);
-    moveSnake(data->snake, 0);
+    moveSnake(data);
     
     return 1;
 }

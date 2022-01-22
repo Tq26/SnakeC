@@ -12,8 +12,7 @@ struct gameData{
     struct snake* snake;
 
     int eggPosition;
-
-
+    
 };
 
 
@@ -38,8 +37,9 @@ struct gameData* initialize();
 int advanceGame(struct gameData* data);
 
 //Snake:
-void moveSnake(struct snake* snake, int isHitAnEgg);
+void moveSnake(struct gameData* data);
 void pushBody(struct snake* snake ,int position);
+int countNewPosition(int currentPosition, enum directions dir);
 
 
 #endif

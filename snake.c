@@ -6,51 +6,49 @@
 
 //snake is like a linked list.
 
-void moveSnake(struct snake* snake, int isHitAnEgg){
+void moveSnake(struct gameData* data){
 
-    struct body* ptr = snake->body;
+    struct body* ptr = data->snake->body;
 
-    if(isHitAnEgg){
-        //make snake longer
-    }   
-    else{
-        //just move without growing
-        
 
-        //some error here.
-        while(ptr->nextbody->nextbody != NULL){
-            ptr = ptr->nextbody;
-        }
-
-        struct body* tail = ptr;
-        ptr->nextbody = NULL;
-
-        tail->nextbody = snake->body;
-
-        struct body* newHead = tail;
-        
-        enum directions dir = snake->snakeDirection;
-
-        switch (dir)
-        {
-        case forward:
-            newHead->field += MAP_SIZE_N;
-            break;
-        
-        case backward:
-            newHead->field -= MAP_SIZE_N;
-            break;
-
-        case left:
-            --newHead->field;
-            break;
-
-        case right:
-            ++newHead->field;
-            break;
-        }
+    if(data->snake->lenght == 1){
+        data->snake->body->field = countNewPosition(data->snake->body->field, data->snake->snakeDirection);
     }
+
 }
+
+int countNewPosition(int currentPosition, enum directions dir){
+    int res;
+
+    switch (dir)
+    {
+    case forward:
+        res = currentPosition - MAP_SIZE_N;
+        break;
+    case backward:
+        res = currentPosition + MAP_SIZE_N;
+        break;
+    case left:
+        res = --currentPosition;
+        break;
+    case right:
+        res = ++currentPosition;
+        break;
+    }
+
+    return res;
+}
+
+void addNewHead(struct gameData* data){
+    struct body* newBody = malloc(sizeof(struct body*));
+    
+    struct body* ptr = data->snake->body;
+    newBody->nextbody = ptr;
+    newBody->field = countNewPosition(ptr->field, data->snake->snakeDirection);
+    data->snake->body = newBody;
+
+}
+
 
 void pushBody(struct snake* snake ,int position){
 
