@@ -10,13 +10,16 @@ struct gameData* initialize(){
     struct gameData* data = malloc(sizeof(struct gameData));
     struct snake* snake = malloc(sizeof(struct snake));
     printf("Gamedata and snake declared and allocated!\n");
-    snake->snakeDirection = forward;
+    snake->snakeDirection = backward;
     snake->body = NULL;
     snake->lenght = 0;
     pushBody(snake, 1);
     pushBody(snake, 2);
     pushBody(snake, 3);
- 
+    pushBody(snake, 4);
+    pushBody(snake, 5);
+    pushBody(snake, 5+MAP_SIZE_N);
+    pushBody(snake, 5+MAP_SIZE_N * 2);
 
     printf("Setup snake finished!\n");
 
@@ -30,7 +33,8 @@ struct gameData* initialize(){
 int advanceGame(struct gameData* data){
     
     printf("Game advanced\n");
-    sleep(1);
+    showGame(data);
+    sleep(GAME_SPEED);
     moveSnake(data);
     
     return 1;

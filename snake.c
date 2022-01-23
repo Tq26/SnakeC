@@ -3,18 +3,23 @@
 
 #include "header.h"
 
-
-//snake is like a linked list.
-
 void moveSnake(struct gameData* data){
 
     struct body* ptr = data->snake->body;
 
-
+    int newPos = countNewPosition(data->snake->body->field, data->snake->snakeDirection);
+    if(newPos == data->eggPosition){
+        addNewHead(data);
+        return;
+    }
+    
     if(data->snake->lenght == 1){
-        data->snake->body->field = countNewPosition(data->snake->body->field, data->snake->snakeDirection);
+        data->snake->body->field = newPos;
+        return;
     }
 
+    addNewHead(data);
+    removeTail(data->snake);
 }
 
 int countNewPosition(int currentPosition, enum directions dir){
@@ -39,6 +44,20 @@ int countNewPosition(int currentPosition, enum directions dir){
     return res;
 }
 
+int hasThatKey(int key, struct snake* snake)
+{
+    struct body* ptr = snake->body;
+
+    while(ptr->nextbody != NULL){
+        if(ptr->field == key){
+            return 1;
+        }
+        ptr = ptr->nextbody;
+    }
+
+    return 0;
+}
+
 void addNewHead(struct gameData* data){
     struct body* newBody = malloc(sizeof(struct body*));
     
@@ -46,9 +65,33 @@ void addNewHead(struct gameData* data){
     newBody->nextbody = ptr;
     newBody->field = countNewPosition(ptr->field, data->snake->snakeDirection);
     data->snake->body = newBody;
-
+    data->snake->lenght += 1;
 }
 
+void removeTail(struct snake* snake){
+
+    if(snake->body == NULL){
+        return;
+    }
+
+    
+    struct body* tailPtr = snake->body;
+    struct body* beforeTailPtr = tailPtr;
+    int length = snake->lenght;
+    
+
+    while(tailPtr->nextbody != NULL){
+        tailPtr = tailPtr->nextbody;
+
+        if(tailPtr->nextbody != NULL){
+            beforeTailPtr = tailPtr;
+        }
+    }
+
+    beforeTailPtr->nextbody = NULL;
+
+    free(tailPtr);
+}
 
 void pushBody(struct snake* snake ,int position){
 
@@ -73,6 +116,3 @@ void pushBody(struct snake* snake ,int position){
     }
     ++(snake->lenght);
 }
-
-
-
