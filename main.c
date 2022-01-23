@@ -5,7 +5,6 @@
 
 int main(){
 
-    printf("Game started\n");
     struct gameData* data = initialize();
     while(advanceGame(data));
 

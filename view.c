@@ -28,5 +28,7 @@ void showGame(struct gameData* data){
     }
 
     printf("________________________________________________\n");
+    printf("Score: %d", data->score);
+    
 }
 

@@ -1,16 +1,16 @@
+#include <conio.h>
 #include <stdlib.h>
 #include  <stdio.h>
 #include <unistd.h>
 #include <time.h>
+
 #include "header.h"
 
 
 struct gameData* initialize(){
 
-    printf("Initialize started!\n");
     struct gameData* data = malloc(sizeof(struct gameData));
     struct snake* snake = malloc(sizeof(struct snake));
-    printf("Gamedata and snake declared and allocated!\n");
     snake->snakeDirection = backward;
     snake->body = NULL;
     snake->lenght = 0;
@@ -22,18 +22,48 @@ struct gameData* initialize(){
     pushBody(snake, 5+MAP_SIZE_N);
     pushBody(snake, 5+MAP_SIZE_N * 2);
 
-    printf("Setup snake finished!\n");
 
     data->snake = snake;
+    data->score = 0;
     placeEgg(data);
 
-    printf("Initialize finished!\n");
     return data;
+}
+
+void userInput(struct gameData* data){
+    int* snakeDirection = &(data->snake->snakeDirection);
+   
+    if(kbhit()){
+        char keyInput = getch();
+        switch (keyInput)
+        {
+        case 'a':
+            if(*snakeDirection != right){
+                *snakeDirection = left;
+            }
+            break;
+        case 'd':
+            if(*snakeDirection != left){
+                *snakeDirection = right;
+            }
+            break;
+        case 'w':
+            if(*snakeDirection != backward){
+                *snakeDirection = forward;
+            }
+            break;
+        case 's':
+            if(*snakeDirection != forward){
+                *snakeDirection = backward;
+            }
+            break;
+        }
+    }
 }
 
 int advanceGame(struct gameData* data){
     
-    printf("Game advanced\n");
+    userInput(data);
     showGame(data);
     sleep(GAME_SPEED);
     moveSnake(data);

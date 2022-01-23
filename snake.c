@@ -11,6 +11,7 @@ void moveSnake(struct gameData* data){
     if(newPos == data->eggPosition){
         addNewHead(data);
         placeEgg(data);
+        data->score += 1;
         return;
     }
     
@@ -30,9 +31,19 @@ int countNewPosition(int currentPosition, enum directions dir){
     {
     case forward:
         res = currentPosition - MAP_SIZE_N;
+
+        if(res < 0){
+            res = MAP_SIZE_N * (MAP_SIZE_N - 1) + res % MAP_SIZE_N;
+        }
+
+
         break;
     case backward:
         res = currentPosition + MAP_SIZE_N;
+
+        if(res >= MAP_SIZE_N * MAP_SIZE_N){
+            res = res % MAP_SIZE_N;
+        }
         break;
     case left:
         res = --currentPosition;
