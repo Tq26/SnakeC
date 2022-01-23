@@ -27,10 +27,8 @@ struct gameData* initialize(){
     data->snake = snake;
     placeEgg(data);
 
-
     printf("Initialize finished!\n");
     return data;
-
 }
 
 int advanceGame(struct gameData* data){

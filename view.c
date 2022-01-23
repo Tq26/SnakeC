@@ -3,11 +3,9 @@
 
 #include "header.h"
 
-
 void clearScreen(){ 
     system("cls");
 }
-
 
 void showGame(struct gameData* data){
     clearScreen();
@@ -30,6 +28,5 @@ void showGame(struct gameData* data){
     }
 
     printf("________________________________________________\n");
-
 }
 

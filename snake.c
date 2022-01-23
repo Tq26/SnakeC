@@ -49,7 +49,7 @@ int hasThatKey(int key, struct snake* snake)
 {
     struct body* ptr = snake->body;
 
-    while(ptr->nextbody != NULL){
+    while(ptr != NULL){
         if(ptr->field == key){
             return 1;
         }
