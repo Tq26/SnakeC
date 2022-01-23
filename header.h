@@ -36,6 +36,7 @@ struct body {
 //Game:
 struct gameData* initialize();
 int advanceGame(struct gameData* data);
+void placeEgg(struct gameData* data);
 
 //Snake:
 void moveSnake(struct gameData* data);

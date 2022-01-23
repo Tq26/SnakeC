@@ -10,6 +10,7 @@ void moveSnake(struct gameData* data){
     int newPos = countNewPosition(data->snake->body->field, data->snake->snakeDirection);
     if(newPos == data->eggPosition){
         addNewHead(data);
+        placeEgg(data);
         return;
     }
     
@@ -74,11 +75,9 @@ void removeTail(struct snake* snake){
         return;
     }
 
-    
     struct body* tailPtr = snake->body;
     struct body* beforeTailPtr = tailPtr;
     int length = snake->lenght;
-    
 
     while(tailPtr->nextbody != NULL){
         tailPtr = tailPtr->nextbody;

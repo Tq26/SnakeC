@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include  <stdio.h>
 #include <unistd.h>
+#include <time.h>
 #include "header.h"
 
 
@@ -24,6 +25,8 @@ struct gameData* initialize(){
     printf("Setup snake finished!\n");
 
     data->snake = snake;
+    placeEgg(data);
+
 
     printf("Initialize finished!\n");
     return data;
@@ -38,4 +41,9 @@ int advanceGame(struct gameData* data){
     moveSnake(data);
     
     return 1;
+}
+
+void placeEgg(struct gameData* data){
+    srand(time(NULL));
+    data->eggPosition = rand() % (MAP_SIZE_N*MAP_SIZE_N);
 }

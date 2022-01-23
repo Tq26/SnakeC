@@ -19,6 +19,9 @@ void showGame(struct gameData* data){
             if(hasThatKey(field++, data->snake)){
                 printf(" # ");
             }
+            else if(field == data->eggPosition){
+                printf(" O ");
+            }
             else{
                 printf("   ");
             }
