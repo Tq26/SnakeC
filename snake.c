@@ -30,19 +30,19 @@ int countNewPosition(int currentPosition, enum directions dir){
     switch (dir)
     {
     case forward:
-        res = currentPosition - MAP_SIZE_N;
+        res = currentPosition - MAP_SIZE;
 
         if(res < 0){
-            res = MAP_SIZE_N * (MAP_SIZE_N - 1) + res % MAP_SIZE_N;
+            res = MAP_SIZE * (MAP_SIZE - 1) + res % MAP_SIZE;
         }
 
 
         break;
     case backward:
-        res = currentPosition + MAP_SIZE_N;
+        res = currentPosition + MAP_SIZE;
 
-        if(res >= MAP_SIZE_N * MAP_SIZE_N){
-            res = res % MAP_SIZE_N;
+        if(res >= MAP_SIZE * MAP_SIZE){
+            res = res % MAP_SIZE;
         }
         break;
     case left:

@@ -2,8 +2,9 @@
 #ifndef SNAKE_GAME_HEADER
 #define SNAKE_GAME_HEADER
 
-static int MAP_SIZE_N = 32;
-static float GAME_SPEED = 0.9;
+#define MAP_SIZE 16
+
+static float GAME_SPEED = 1;
 
 enum directions {forward, backward, left, right};
 
@@ -11,6 +12,7 @@ struct gameData{
     struct snake* snake;
     int eggPosition;
     int score;
+    char* viewData;
 };
 
 struct snake {

@@ -19,13 +19,15 @@ struct gameData* initialize(){
     pushBody(snake, 3);
     pushBody(snake, 4);
     pushBody(snake, 5);
-    pushBody(snake, 5+MAP_SIZE_N);
-    pushBody(snake, 5+MAP_SIZE_N * 2);
+    pushBody(snake, 5+ MAP_SIZE);
+    pushBody(snake, 5+ MAP_SIZE * 2);
 
 
     data->snake = snake;
     data->score = 0;
     placeEgg(data);
+
+    data->viewData = malloc((MAP_SIZE + 1) * (MAP_SIZE + 1));
 
     return data;
 }
@@ -73,5 +75,5 @@ int advanceGame(struct gameData* data){
 
 void placeEgg(struct gameData* data){
     srand(time(NULL));
-    data->eggPosition = rand() % (MAP_SIZE_N*MAP_SIZE_N);
+    data->eggPosition = rand() % (MAP_SIZE * MAP_SIZE);
 }
