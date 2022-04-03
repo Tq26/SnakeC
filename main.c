@@ -7,7 +7,9 @@ int main(){
 
     struct gameData* data = initialize();
     while(advanceGame(data));
-
+    
+    delete(data);
+    printf("exit\n");
     return 1;
 
 }

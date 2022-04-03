@@ -2,7 +2,8 @@
 #ifndef SNAKE_GAME_HEADER
 #define SNAKE_GAME_HEADER
 
-#define MAP_SIZE 16
+#define MAP_SIZE 8
+#define VIEW_LENGTH 3
 
 static float GAME_SPEED = 1;
 
@@ -12,7 +13,7 @@ struct gameData{
     struct snake* snake;
     int eggPosition;
     int score;
-    char* viewData;
+    char** viewData;
 };
 
 struct snake {
@@ -30,7 +31,8 @@ struct body {
 struct gameData* initialize();
 int advanceGame(struct gameData* data);
 void placeEgg(struct gameData* data);
-void userInput(struct gameData* data);
+int userInput(struct gameData* data);
+void delete(struct gameData* data);
 
 //Snake:
 void moveSnake(struct gameData* data);
@@ -43,5 +45,6 @@ int countNewPosition(int currentPosition, enum directions dir);
 //View:
 void clearScreen();
 void showGame(struct gameData* data);
+void calculateView(struct gameData* data);
 
 #endif

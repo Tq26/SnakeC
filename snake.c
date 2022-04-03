@@ -5,23 +5,25 @@
 
 void moveSnake(struct gameData* data){
 
-    struct body* ptr = data->snake->body;
-
+    printf("moveSnake started\n");
     int newPos = countNewPosition(data->snake->body->field, data->snake->snakeDirection);
     if(newPos == data->eggPosition){
         addNewHead(data);
         placeEgg(data);
         data->score += 1;
+        printf("snake ate egg\n");
         return;
     }
     
     if(data->snake->lenght == 1){
         data->snake->body->field = newPos;
+        printf("snake moved_1\n");
         return;
     }
 
     addNewHead(data);
     removeTail(data->snake);
+    printf("snake_moved\n");
 }
 
 int countNewPosition(int currentPosition, enum directions dir){
@@ -88,7 +90,6 @@ void removeTail(struct snake* snake){
 
     struct body* tailPtr = snake->body;
     struct body* beforeTailPtr = tailPtr;
-    int length = snake->lenght;
 
     while(tailPtr->nextbody != NULL){
         tailPtr = tailPtr->nextbody;

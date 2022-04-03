@@ -27,14 +27,22 @@ struct gameData* initialize(){
     data->score = 0;
     placeEgg(data);
 
-    data->viewData = malloc((MAP_SIZE + 1) * (MAP_SIZE + 1));
+
+    data->viewData = malloc(MAP_SIZE);
+    int viewLength = MAP_SIZE * VIEW_LENGTH + 1;
+    for(int i = 0; i < MAP_SIZE; ++i){
+        data->viewData[i] = malloc(viewLength);
+    }
+
 
     return data;
 }
 
-void userInput(struct gameData* data){
+int userInput(struct gameData* data){
+    printf("Userinput started.\n");
     int* snakeDirection = &(data->snake->snakeDirection);
    
+    int result = 1;
     if(kbhit()){
         char keyInput = getch();
         switch (keyInput)
@@ -59,21 +67,41 @@ void userInput(struct gameData* data){
                 *snakeDirection = backward;
             }
             break;
+        case 'q':
+            result = 0;
         }
+        
     }
+    printf("Userinput ended, result: %d\n", result);
+    return result;
 }
 
 int advanceGame(struct gameData* data){
     
-    userInput(data);
+    printf("advanceGame started.\n");
+    int result = userInput(data);
     showGame(data);
     sleep(GAME_SPEED);
     moveSnake(data);
-    
-    return 1;
+    printf("advanceGame ended. result is %d\n", result);
+    return result;
 }
 
 void placeEgg(struct gameData* data){
     srand(time(NULL));
     data->eggPosition = rand() % (MAP_SIZE * MAP_SIZE);
+}
+
+
+void delete(struct gameData* data){
+    printf("Free:");
+    free(data->snake->body->nextbody);
+    printf("body, ");
+    free(data->snake->body);
+    printf("snake, ");
+    free(data->snake);
+    printf("viewData, ");
+    free(data->viewData);
+    printf("data\n");
+    free(data);
 }
